@@ -945,7 +945,6 @@
       <li><a href="#story">Our Story</a></li>
       <li><a href="#founders">Founders</a></li>
       <li><a href="#mission">Mission</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -1204,19 +1203,7 @@
         </ul>
       </div>
 
-      <div id="contact">
-        <h3 class="footer-title">Contact Us</h3>
 
-        <p>
-          Have a question or just want to say hello? We'd love to hear from you.
-        </p>
-
-        <input class="newsletter" type="text" placeholder="Your name" style="margin-top:20px;"/>
-        <input class="newsletter" type="email" placeholder="Your email" style="margin-top:12px;"/>
-        <textarea class="newsletter" placeholder="Your message" rows="4" style="margin-top:12px;resize:vertical;font-family:'Inter',sans-serif;font-size:16px;"></textarea>
-        <button onclick="handleContact()" style="margin-top:14px;width:100%;padding:16px;border:none;border-radius:20px;background:linear-gradient(90deg,#65e8ff,#b8ffda);color:#07151d;font-weight:600;font-size:.95rem;cursor:pointer;letter-spacing:.3px;transition:.3s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send Message</button>
-        <p id="contact-msg" style="margin-top:12px;font-size:.88rem;color:#17b6d4;display:none;text-align:center;">✓ Message sent! We'll be in touch soon.</p>
-      </div>
 
     </div>
 
@@ -1242,11 +1229,6 @@
     navLinks.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => navLinks.classList.remove('open'));
     });
-
-    // Contact form handler
-    function handleContact(){
-      document.getElementById('contact-msg').style.display = 'block';
-    }
 
     // Floating particles
     for(let i=0;i<7;i++){
