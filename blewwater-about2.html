@@ -43,6 +43,7 @@
       overflow-x:hidden;
       font-family:'Inter',sans-serif;
       scroll-behavior:smooth;
+      padding-top:72px;
     }
 
     section{
@@ -61,6 +62,121 @@
       line-height:1.9;
       color:var(--muted);
       font-size:1rem;
+    }
+
+    /* -------------------- NAVBAR ------------------- */
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      padding:18px 8%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:rgba(247,255,255,0.75);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,0.4);
+      transition:background .3s;
+    }
+
+    nav.scrolled{
+      background:rgba(247,255,255,0.92);
+      box-shadow:0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .nav-logo{
+      font-family:'DM Serif Display',serif;
+      font-size:1.6rem;
+      color:var(--text);
+      text-decoration:none;
+      letter-spacing:-0.5px;
+    }
+
+    .nav-logo span{
+      color:#17b6d4;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:36px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      font-size:.92rem;
+      font-weight:500;
+      color:var(--muted);
+      letter-spacing:.3px;
+      transition:color .3s;
+      position:relative;
+    }
+
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      bottom:-4px;
+      left:0;
+      width:0;
+      height:2px;
+      background:linear-gradient(90deg,#65e8ff,#b8ffda);
+      border-radius:2px;
+      transition:width .3s;
+    }
+
+    .nav-links a:hover{
+      color:var(--text);
+    }
+
+    .nav-links a:hover::after{
+      width:100%;
+    }
+
+    .nav-hamburger{
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+      background:none;
+      border:none;
+      padding:4px;
+    }
+
+    .nav-hamburger span{
+      display:block;
+      width:26px;
+      height:2px;
+      background:var(--text);
+      border-radius:2px;
+      transition:.3s;
+    }
+
+    @media(max-width:700px){
+      .nav-links{
+        display:none;
+        position:fixed;
+        top:64px;
+        left:0;
+        width:100%;
+        flex-direction:column;
+        background:rgba(247,255,255,0.97);
+        backdrop-filter:blur(18px);
+        padding:24px 8%;
+        gap:24px;
+        border-bottom:1px solid rgba(255,255,255,0.4);
+      }
+
+      .nav-links.open{
+        display:flex;
+      }
+
+      .nav-hamburger{
+        display:flex;
+      }
     }
 
     /* -------------------- GLOBAL FX ------------------- */
@@ -821,8 +937,23 @@
   <div class="blur one"></div>
   <div class="blur two"></div>
 
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Blew<span>Water</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="hero">
 
     <div class="hero-left">
       <h1>Refreshing Hydration Powered by Wellness.</h1>
@@ -854,7 +985,7 @@
   </section>
 
   <!-- STORY -->
-  <section>
+  <section id="story">
 
     <h2 class="section-title">How Blew Water Began</h2>
 
@@ -890,7 +1021,7 @@
   </section>
 
   <!-- FOUNDERS -->
-  <section>
+  <section id="founders">
 
     <h2 class="section-title">Meet The Founders</h2>
 
@@ -939,7 +1070,7 @@
   </section>
 
   <!-- MISSION -->
-  <section>
+  <section id="mission">
 
     <h2 class="section-title">Mission & Vision</h2>
 
@@ -1066,21 +1197,25 @@
         <h3 class="footer-title">Navigation</h3>
 
         <ul>
-          <li>About</li>
-          <li>Story</li>
-          <li>Mission</li>
-          <li>Founders</li>
+          <li><a href="#hero" style="text-decoration:none;color:inherit;">Home</a></li>
+          <li><a href="#story" style="text-decoration:none;color:inherit;">Our Story</a></li>
+          <li><a href="#mission" style="text-decoration:none;color:inherit;">Mission</a></li>
+          <li><a href="#founders" style="text-decoration:none;color:inherit;">Founders</a></li>
         </ul>
       </div>
 
-      <div>
-        <h3 class="footer-title">Newsletter</h3>
+      <div id="contact">
+        <h3 class="footer-title">Contact Us</h3>
 
         <p>
-          Stay connected with wellness-inspired updates and future hydration stories.
+          Have a question or just want to say hello? We'd love to hear from you.
         </p>
 
-        <input class="newsletter" type="text" placeholder="Enter your email"/>
+        <input class="newsletter" type="text" placeholder="Your name" style="margin-top:20px;"/>
+        <input class="newsletter" type="email" placeholder="Your email" style="margin-top:12px;"/>
+        <textarea class="newsletter" placeholder="Your message" rows="4" style="margin-top:12px;resize:vertical;font-family:'Inter',sans-serif;font-size:16px;"></textarea>
+        <button onclick="handleContact()" style="margin-top:14px;width:100%;padding:16px;border:none;border-radius:20px;background:linear-gradient(90deg,#65e8ff,#b8ffda);color:#07151d;font-weight:600;font-size:.95rem;cursor:pointer;letter-spacing:.3px;transition:.3s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send Message</button>
+        <p id="contact-msg" style="margin-top:12px;font-size:.88rem;color:#17b6d4;display:none;text-align:center;">✓ Message sent! We'll be in touch soon.</p>
       </div>
 
     </div>
@@ -1089,6 +1224,29 @@
 
   <!-- PARTICLES -->
   <script>
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Contact form handler
+    function handleContact(){
+      document.getElementById('contact-msg').style.display = 'block';
+    }
 
     // Floating particles
     for(let i=0;i<7;i++){
