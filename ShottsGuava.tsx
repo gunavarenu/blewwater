@@ -1,11 +1,58 @@
-class<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOTT'S — Guava Flavoured Vitamin Water</title>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<style>
+"use client";
+
+import React, { useEffect } from 'react';
+import { assetPath } from "@/lib/assetPath";
+
+
+
+type SectionSelector =
+  | '.product-info-section'
+  | '.story-section'
+  | '.ingredients'
+  | '.benefits'
+  | '.cta';
+
+const ShottsGuava: React.FC = () => {
+  const scrollToSection = (selector: SectionSelector): void => {
+    const el = document.querySelector<HTMLElement>(selector);
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  
+  useEffect(() => {
+    document.title = "SHOTT'S — Guava Flavoured Vitamin Water";
+
+    const fontLinkId = 'shotts-guava-fonts';
+    if (!document.getElementById(fontLinkId)) {
+      const link = document.createElement('link');
+      link.id = fontLinkId;
+      link.rel = 'stylesheet';
+      link.href =
+        'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap';
+      document.head.appendChild(link);
+    }
+
+    const elements = document.querySelectorAll('.shotts-guava-page .fade-in');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="shotts-guava-page">
+      <style>{`
+
   :root {
     --sage: #F0BBC9;
     --sage-dark: #C2748A;
@@ -30,72 +77,8 @@ class<!DOCTYPE html>
     --bg-warm: #F2F0E2;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(135deg, #F7F0E6 0%, #F7F0E6 30%, #F7F0E6 60%, #F7F0E6 100%);
-    background-attachment: fixed;
-    color: var(--text-dark);
-    overflow-x: hidden;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* ===== NAVIGATION ===== */
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    background: rgba(255,251,250,0.97);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(217,140,160,0.15);
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: #D98CA0;
-    letter-spacing: -0.5px; 
-  }
-  .logo span { color: #D98CA0; font-style: italic; }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-    font-size: 14px;
-    font-weight: 600;
-    color: #6B4050;
-  }
-  .nav-links li { cursor: pointer; transition: color 0.3s; }
-  .nav-links li:hover { color: #D98CA0; }
-
-  .nav-btn {
-    background: linear-gradient(135deg, #C2748A, #D98CA0);
-    color: white;
-    border: none;
-    padding: 12px 32px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Quicksand', sans-serif;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(161,77,99,0.12);
-  }
-  .nav-btn:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 20px rgba(161,77,99,0.2);
-  }
-
   /* ===== HERO SECTION ===== */
-  .hero {
+  .shotts-guava-page .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
@@ -107,17 +90,17 @@ class<!DOCTYPE html>
     background: linear-gradient(180deg, #A14D63 0%, #D98CA0 20%, #F0BBC9 45%, #F0BBC9 70%, #F7F0E6 100%);
   }
 
-  .cloud {
+  .shotts-guava-page .cloud {
     position: absolute;
     opacity: 0.7;
     animation: driftCloud 20s ease-in-out infinite alternate;
     filter: drop-shadow(0 4px 8px rgba(217,140,160,0.12));
   }
-  .cloud:nth-child(1) { top: 8%; left: 5%; animation-duration: 25s; }
-  .cloud:nth-child(2) { top: 15%; right: 8%; animation-duration: 30s; animation-direction: reverse; }
-  .cloud:nth-child(3) { top: 5%; left: 40%; animation-duration: 22s; animation-delay: -5s; }
-  .cloud:nth-child(4) { top: 25%; left: 15%; animation-duration: 28s; animation-delay: -10s; opacity: 0.5; }
-  .cloud:nth-child(5) { top: 10%; right: 25%; animation-duration: 24s; animation-delay: -8s; opacity: 0.45; }
+  .shotts-guava-page .cloud:nth-child(1) { top: 8%; left: 5%; animation-duration: 25s; }
+  .shotts-guava-page .cloud:nth-child(2) { top: 15%; right: 8%; animation-duration: 30s; animation-direction: reverse; }
+  .shotts-guava-page .cloud:nth-child(3) { top: 5%; left: 40%; animation-duration: 22s; animation-delay: -5s; }
+  .shotts-guava-page .cloud:nth-child(4) { top: 25%; left: 15%; animation-duration: 28s; animation-delay: -10s; opacity: 0.5; }
+  .shotts-guava-page .cloud:nth-child(5) { top: 10%; right: 25%; animation-duration: 24s; animation-delay: -8s; opacity: 0.45; }
 
   @keyframes driftCloud {
     0% { transform: translateX(-30px) translateY(0); }
@@ -125,15 +108,15 @@ class<!DOCTYPE html>
     100% { transform: translateX(40px) translateY(5px); }
   }
 
-  .birds {
+  .shotts-guava-page .birds {
     position: absolute;
     opacity: 0.5;
     animation: birdFly 15s linear infinite;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
-  .birds:nth-of-type(6) { top: 12%; left: 20%; animation-duration: 18s; }
-  .birds:nth-of-type(7) { top: 8%; right: 30%; animation-duration: 22s; animation-delay: -5s; }
-  .birds:nth-of-type(8) { top: 20%; left: 60%; animation-duration: 20s; animation-delay: -10s; opacity: 0.4; }
+  .shotts-guava-page .birds:nth-of-type(6) { top: 12%; left: 20%; animation-duration: 18s; }
+  .shotts-guava-page .birds:nth-of-type(7) { top: 8%; right: 30%; animation-duration: 22s; animation-delay: -5s; }
+  .shotts-guava-page .birds:nth-of-type(8) { top: 20%; left: 60%; animation-duration: 20s; animation-delay: -10s; opacity: 0.4; }
 
   @keyframes birdFly {
     0% { transform: translateX(0) translateY(0); }
@@ -143,7 +126,7 @@ class<!DOCTYPE html>
     100% { transform: translateX(120px) translateY(0); }
   }
 
-  .orange {
+  .shotts-guava-page .orange {
     position: absolute;
     animation: floatBerries 6s ease-in-out infinite;
     pointer-events: none;
@@ -157,22 +140,22 @@ class<!DOCTYPE html>
     50% { transform: translateY(-15px) rotate(5deg); }
   }
 
-  .water-splash {
+  .shotts-guava-page .water-splash {
     position: absolute;
     opacity: 0.35;
     animation: splashWave 8s ease-in-out infinite;
     filter: drop-shadow(0 4px 8px rgba(79,195,247,0.3));
   }
-  .water-splash:nth-of-type(17) { bottom: 15%; left: 5%; width: 120px; animation-delay: 0s; }
-  .water-splash:nth-of-type(18) { bottom: 20%; right: 8%; width: 100px; animation-delay: -3s; }
-  .water-splash:nth-of-type(19) { bottom: 10%; left: 30%; width: 80px; animation-delay: -5s; opacity: 0.3; }
+  .shotts-guava-page .water-splash:nth-of-type(17) { bottom: 15%; left: 5%; width: 120px; animation-delay: 0s; }
+  .shotts-guava-page .water-splash:nth-of-type(18) { bottom: 20%; right: 8%; width: 100px; animation-delay: -3s; }
+  .shotts-guava-page .water-splash:nth-of-type(19) { bottom: 10%; left: 30%; width: 80px; animation-delay: -5s; opacity: 0.3; }
 
   @keyframes splashWave {
     0%, 100% { transform: translateY(0) scale(1); opacity: 0.35; }
     50% { transform: translateY(-10px) scale(1.05); opacity: 0.5; }
   }
 
-  .hero-tagline {
+  .shotts-guava-page .hero-tagline {
     font-size: 13px;
     font-weight: 700;
     color: #F0BBC9;
@@ -185,7 +168,7 @@ class<!DOCTYPE html>
     opacity: 0.95;
   }
 
-  .hero-title {
+  .shotts-guava-page .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: 52px;
     font-weight: 400;
@@ -199,9 +182,9 @@ class<!DOCTYPE html>
     z-index: 10;
     text-shadow: 0 2px 20px rgba(0,0,0,0.4);
   }
-  .hero-title em { color: #8BC34A; font-weight: 600; }
+  .shotts-guava-page .hero-title em { color: #8BC34A; font-weight: 600; }
 
-  .hero-bottle {
+  .shotts-guava-page .hero-bottle {
     position: relative;
     z-index: 15;
     width: 280px;
@@ -209,7 +192,7 @@ class<!DOCTYPE html>
     animation: floatBottle 5s ease-in-out infinite;
     filter: drop-shadow(0 25px 50px rgba(161,77,99,0.12));
   }
-  .hero-bottle img {
+  .shotts-guava-page .hero-bottle img {
     width: 100%;
     height: auto;
     display: block;
@@ -221,7 +204,7 @@ class<!DOCTYPE html>
     50% { transform: translateY(-15px); }
   }
 
-  .hero-sub {
+  .shotts-guava-page .hero-sub {
     font-size: 15px;
     color: #7A3E4E;
     text-align: center;
@@ -236,7 +219,7 @@ class<!DOCTYPE html>
     backdrop-filter: blur(8px);
   }
 
-  .hero-scroll {
+  .shotts-guava-page .hero-scroll {
     text-align: center;
     margin-top: 30px;
     font-size: 12px;
@@ -256,7 +239,7 @@ class<!DOCTYPE html>
   }
 
   /* ===== PRODUCT INFO SECTION - NEW ===== */
-  .product-info-section {
+  .shotts-guava-page .product-info-section {
     background: linear-gradient(135deg, #F7F0E6 0%, #F7F0E6 50%, #F7F0E6 100%);
     padding: 100px 40px;
     position: relative;
@@ -267,7 +250,7 @@ class<!DOCTYPE html>
     justify-content: center;
   }
 
-  .product-info-section::before {
+  .shotts-guava-page .product-info-section::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -276,7 +259,7 @@ class<!DOCTYPE html>
     opacity: 0.8;
   }
 
-  .product-info-wrap {
+  .shotts-guava-page .product-info-wrap {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -287,7 +270,7 @@ class<!DOCTYPE html>
     width: 100%;
   }
 
-  .product-bottle-left {
+  .shotts-guava-page .product-bottle-left {
     flex: 0 0 45%;
     position: relative;
     display: flex;
@@ -295,7 +278,7 @@ class<!DOCTYPE html>
     align-items: center;
   }
 
-  .product-bottle-left img {
+  .shotts-guava-page .product-bottle-left img {
     width: 100%;
     max-width: 420px;
     height: auto;
@@ -305,7 +288,7 @@ class<!DOCTYPE html>
     transition: transform 0.4s ease;
   }
 
-  .product-bottle-left img:hover {
+  .shotts-guava-page .product-bottle-left img:hover {
     transform: scale(1.05);
   }
 
@@ -314,12 +297,12 @@ class<!DOCTYPE html>
     50% { transform: translateY(-12px) rotate(2deg); }
   }
 
-  .product-info-text {
+  .shotts-guava-page .product-info-text {
     flex: 1;
     padding: 20px 0;
   }
 
-  .product-info-text .section-label {
+  .shotts-guava-page .product-info-text .shotts-guava-page .section-label {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 3px;
@@ -328,7 +311,7 @@ class<!DOCTYPE html>
     margin-bottom: 16px;
   }
 
-  .product-info-text h2 {
+  .shotts-guava-page .product-info-text h2 {
     font-family: 'Playfair Display', serif;
     font-size: 42px;
     font-weight: 400;
@@ -338,7 +321,7 @@ class<!DOCTYPE html>
     margin-bottom: 24px;
   }
 
-  .product-info-text .lead-text {
+  .shotts-guava-page .product-info-text .shotts-guava-page .lead-text {
     font-size: 20px;
     color: #6B3D4A;
     line-height: 1.8;
@@ -350,7 +333,7 @@ class<!DOCTYPE html>
     border-left: 4px solid var(--sunset-orange);
   }
 
-  .product-info-text .info-paragraph {
+  .shotts-guava-page .product-info-text .shotts-guava-page .info-paragraph {
     font-size: 17px;
     color: #6B3D4A;
     line-height: 1.9;
@@ -358,19 +341,19 @@ class<!DOCTYPE html>
     margin-bottom: 20px;
   }
 
-  .product-info-text .info-paragraph strong {
+  .shotts-guava-page .product-info-text .shotts-guava-page .info-paragraph strong {
     color: #D98CA0;
     font-weight: 700;
   }
 
-  .vitamin-highlights {
+  .shotts-guava-page .vitamin-highlights {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-top: 30px;
   }
 
-  .vitamin-item {
+  .shotts-guava-page .vitamin-item {
     background: rgba(255,255,255,0.8);
     padding: 18px 22px;
     border-radius: 16px;
@@ -378,33 +361,33 @@ class<!DOCTYPE html>
     transition: all 0.3s ease;
   }
 
-  .vitamin-item:hover {
+  .shotts-guava-page .vitamin-item:hover {
     transform: translateY(-4px);
     border-color: #D98CA0;
     box-shadow: 0 8px 24px rgba(217,140,160,0.12);
   }
 
-  .vitamin-item .vit-icon {
+  .shotts-guava-page .vitamin-item .shotts-guava-page .vit-icon {
     font-size: 28px;
     margin-bottom: 8px;
     display: block;
   }
 
-  .vitamin-item .vit-name {
+  .shotts-guava-page .vitamin-item .shotts-guava-page .vit-name {
     font-size: 15px;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 4px;
   }
 
-  .vitamin-item .vit-desc {
+  .shotts-guava-page .vitamin-item .shotts-guava-page .vit-desc {
     font-size: 13px;
     color: var(--text-muted);
     font-weight: 500;
     line-height: 1.5;
   }
 
-  .product-deco {
+  .shotts-guava-page .product-deco {
     position: absolute;
     opacity: 0.15;
     animation: spinSlow 25s linear infinite;
@@ -416,7 +399,7 @@ class<!DOCTYPE html>
     to { transform: rotate(360deg); }
   }
 
-  .divider {
+  .shotts-guava-page .divider {
     width: 60px;
     height: 3px;
     background: linear-gradient(90deg, #D98CA0, #A14D63);
@@ -425,14 +408,14 @@ class<!DOCTYPE html>
   }
 
   /* ===== CHARACTER SECTION ===== */
-  .character-section {
+  .shotts-guava-page .character-section {
     background: linear-gradient(180deg, #F7F0E6 0%, #F2F0E2 50%, #F7F0E6 100%);
     padding: 100px 24px;
     position: relative;
     overflow: hidden;
   }
 
-  .character-section::before {
+  .shotts-guava-page .character-section::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -441,7 +424,7 @@ class<!DOCTYPE html>
     opacity: 0.8;
   }
 
-  .character-wrap {
+  .shotts-guava-page .character-wrap {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
@@ -451,11 +434,11 @@ class<!DOCTYPE html>
     z-index: 5;
   }
 
-  .character-img {
+  .shotts-guava-page .character-img {
     flex: 0 0 45%;
     position: relative;
   }
-  .character-img img {
+  .shotts-guava-page .character-img img {
     width: 100%;
     max-width: 500px;
     height: auto;
@@ -469,9 +452,9 @@ class<!DOCTYPE html>
     50% { transform: translateY(-8px); }
   }
 
-  .character-text { flex: 1; }
+  .shotts-guava-page .character-text { flex: 1; }
 
-  .section-label {
+  .shotts-guava-page .section-label {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 3px;
@@ -480,7 +463,7 @@ class<!DOCTYPE html>
     margin-bottom: 16px;
   }
 
-  .character-text h2 {
+  .shotts-guava-page .character-text h2 {
     font-family: 'Playfair Display', serif;
     font-size: 38px;
     font-weight: 400;
@@ -490,18 +473,18 @@ class<!DOCTYPE html>
     margin-bottom: 24px;
   }
 
-  .character-text p {
+  .shotts-guava-page .character-text p {
     font-size: 17px;
     color: #6B3D4A;
     line-height: 1.9;
     font-weight: 500;
   }
-  .character-text p strong {
+  .shotts-guava-page .character-text p strong {
     color: #F0BBC9 ;
     font-weight: 700;
   }
 
-  .char-deco {
+  .shotts-guava-page .char-deco {
     position: absolute;
     opacity: 0.2;
     animation: spinSlow 20s linear infinite;
@@ -509,14 +492,14 @@ class<!DOCTYPE html>
   }
 
   /* ===== STORY SECTION ===== */
-  .story-section {
+  .shotts-guava-page .story-section {
     background: linear-gradient(180deg, #F7F0E6 0%, #F0BBC9 25%, #F0BBC9 50%, #F0BBC9 75%, #D98CA0 100%);
     padding: 120px 24px;
     position: relative;
     overflow: hidden;
   }
 
-  .story-inner {
+  .shotts-guava-page .story-inner {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
@@ -524,7 +507,7 @@ class<!DOCTYPE html>
     z-index: 5;
   }
 
-  .story-photo {
+  .shotts-guava-page .story-photo {
     margin-bottom: 50px;
     position: relative;
     display: inline-block;
@@ -532,7 +515,7 @@ class<!DOCTYPE html>
     width: 90%;
   }
 
-  .story-photo img {
+  .shotts-guava-page .story-photo img {
     width: 100%;
     height: auto;
     border-radius: 24px;
@@ -540,7 +523,7 @@ class<!DOCTYPE html>
     object-fit: cover;
   }
 
-  .story-section h2 {
+  .shotts-guava-page .story-section h2 {
     font-family: 'Playfair Display', serif;
     font-size: 42px;
     font-weight: 400;
@@ -551,7 +534,7 @@ class<!DOCTYPE html>
     text-shadow: 0 2px 10px rgba(255,255,255,0.5);
   }
 
-  .story-section p {
+  .shotts-guava-page .story-section p {
     font-size: 18px;
     color: #7A3E4E;
     line-height: 2;
@@ -559,12 +542,12 @@ class<!DOCTYPE html>
     margin: 0 auto;
     font-weight: 500;
   }
-  .story-section p strong {
+  .shotts-guava-page .story-section p strong {
     color: #D98CA0;
     font-weight: 700;
   }
 
-  .sunset-glow {
+  .shotts-guava-page .sunset-glow {
     position: absolute;
     bottom: 0; left: 50%;
     transform: translateX(-50%);
@@ -575,14 +558,14 @@ class<!DOCTYPE html>
   }
 
   /* ===== BENEFITS ===== */
-  .benefits {
+  .shotts-guava-page .benefits {
     background: #F7F0E6;
     padding: 100px 24px;
     text-align: center;
     position: relative;
   }
 
-  .benefits h2 {
+  .shotts-guava-page .benefits h2 {
     font-family: 'Playfair Display', serif;
     font-size: 36px;
     font-weight: 400;
@@ -591,7 +574,7 @@ class<!DOCTYPE html>
     margin-bottom: 10px;
   }
 
-  .benefits-grid {
+  .shotts-guava-page .benefits-grid {
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -599,7 +582,7 @@ class<!DOCTYPE html>
     flex-wrap: wrap;
   }
 
-  .benefit-card {
+  .shotts-guava-page .benefit-card {
     width: 200px;
     text-align: center;
     padding: 35px 25px;
@@ -611,7 +594,7 @@ class<!DOCTYPE html>
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(74,37,48,0.06);
   }
-  .benefit-card::before {
+  .shotts-guava-page .benefit-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -620,14 +603,14 @@ class<!DOCTYPE html>
     opacity: 0;
     transition: opacity 0.4s;
   }
-  .benefit-card:hover {
+  .shotts-guava-page .benefit-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 25px 50px rgba(74,37,48,0.12);
     border-color: rgba(217,140,160,0.4);
   }
-  .benefit-card:hover::before { opacity: 1; }
+  .shotts-guava-page .benefit-card:hover::before { opacity: 1; }
 
-  .benefit-icon {
+  .shotts-guava-page .benefit-icon {
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
@@ -640,13 +623,13 @@ class<!DOCTYPE html>
     box-shadow: 0 8px 20px rgba(217,140,160,0.12);
   }
 
-  .benefit-name {
+  .shotts-guava-page .benefit-name {
     font-size: 16px;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 10px;
   }
-  .benefit-desc {
+  .shotts-guava-page .benefit-desc {
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.6;
@@ -654,7 +637,7 @@ class<!DOCTYPE html>
   }
 
   /* ===== INGREDIENTS ===== */
-  .ingredients {
+  .shotts-guava-page .ingredients {
     background: linear-gradient(180deg, #F7F0E6 0%, #F2F0E2 50%, #F7F0E6 100%);
     padding: 100px 24px;
     text-align: center;
@@ -662,7 +645,7 @@ class<!DOCTYPE html>
     overflow: hidden;
   }
 
-  .ingredients h2 {
+  .shotts-guava-page .ingredients h2 {
     font-family: 'Playfair Display', serif;
     font-size: 36px;
     font-weight: 400;
@@ -675,7 +658,7 @@ class<!DOCTYPE html>
   }
 
   /* Three-column layout for ingredients section */
-  .ingredients-layout {
+  .shotts-guava-page .ingredients-layout {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -685,14 +668,14 @@ class<!DOCTYPE html>
     z-index: 10;
   }
 
-  .ingredient-side {
+  .shotts-guava-page .ingredient-side {
     flex: 0 0 220px;
     display: flex;
     flex-direction: column;
     gap: 18px;
   }
 
-  .ingredient-card {
+  .shotts-guava-page .ingredient-card {
     background: rgba(255,255,255,0.92);
     border-radius: 20px;
     padding: 18px 20px;
@@ -705,7 +688,7 @@ class<!DOCTYPE html>
     backdrop-filter: blur(8px);
   }
 
-  .ingredient-card::before {
+  .shotts-guava-page .ingredient-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
@@ -715,30 +698,30 @@ class<!DOCTYPE html>
     border-radius: 4px 0 0 4px;
   }
 
-  .ingredient-card.right::before {
+  .shotts-guava-page .ingredient-card.right::before {
     left: auto;
     right: 0;
     border-radius: 0 4px 4px 0;
     background: linear-gradient(180deg, #A14D63, #D98CA0);
   }
 
-  .ingredient-card:hover {
+  .shotts-guava-page .ingredient-card:hover {
     transform: translateY(-4px);
     border-color: rgba(217,140,160,0.4);
     box-shadow: 0 12px 30px rgba(74,37,48,0.12);
   }
 
-  .ingredient-card.right:hover {
+  .shotts-guava-page .ingredient-card.right:hover {
     border-color: rgba(217,140,160,0.4);
   }
 
-  .ingredient-icon {
+  .shotts-guava-page .ingredient-icon {
     font-size: 22px;
     margin-bottom: 6px;
     display: block;
   }
 
-  .ingredient-name {
+  .shotts-guava-page .ingredient-name {
     font-size: 14px;
     font-weight: 700;
     color: var(--text-dark);
@@ -746,14 +729,14 @@ class<!DOCTYPE html>
     line-height: 1.3;
   }
 
-  .ingredient-desc {
+  .shotts-guava-page .ingredient-desc {
     font-size: 11.5px;
     color: var(--text-muted);
     font-weight: 500;
     line-height: 1.5;
   }
 
-  .orbit-container {
+  .shotts-guava-page .orbit-container {
     position: relative;
     width: 450px;
     height: 450px;
@@ -761,7 +744,7 @@ class<!DOCTYPE html>
     z-index: 10;
   }
 
-  .orbit-ring {
+  .shotts-guava-page .orbit-ring {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
@@ -777,7 +760,7 @@ class<!DOCTYPE html>
     50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.03); }
   }
 
-  .orbit-item {
+  .shotts-guava-page .orbit-item {
     position: absolute;
     top: 50%; left: 50%;
     width: 90px;
@@ -788,17 +771,17 @@ class<!DOCTYPE html>
     transform-origin: 45px 45px;
   }
 
-  .orbit-item:nth-child(1) { animation-duration: 20s; }
-  .orbit-item:nth-child(2) { animation-duration: 20s; animation-delay: -5s; }
-  .orbit-item:nth-child(3) { animation-duration: 20s; animation-delay: -10s; }
-  .orbit-item:nth-child(4) { animation-duration: 20s; animation-delay: -15s; }
+  .shotts-guava-page .orbit-item:nth-child(1) { animation-duration: 20s; }
+  .shotts-guava-page .orbit-item:nth-child(2) { animation-duration: 20s; animation-delay: -5s; }
+  .shotts-guava-page .orbit-item:nth-child(3) { animation-duration: 20s; animation-delay: -10s; }
+  .shotts-guava-page .orbit-item:nth-child(4) { animation-duration: 20s; animation-delay: -15s; }
 
   @keyframes orbitSpin {
     from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
     to { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
   }
 
-  .orbit-inner {
+  .shotts-guava-page .orbit-inner {
     width: 100%;
     height: 100%;
     display: flex;
@@ -813,11 +796,11 @@ class<!DOCTYPE html>
     to { transform: rotate(-360deg); }
   }
 
-  .orbit-inner svg {
+  .shotts-guava-page .orbit-inner svg {
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
   }
 
-  .orbit-label {
+  .shotts-guava-page .orbit-label {
     display: block;
     font-size: 12px;
     font-weight: 700;
@@ -831,7 +814,7 @@ class<!DOCTYPE html>
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
-  .center-bottle {
+  .shotts-guava-page .center-bottle {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
@@ -839,7 +822,7 @@ class<!DOCTYPE html>
     width: 140px;
     animation: gentlePulse 3s ease-in-out infinite;
   }
-  .center-bottle img {
+  .shotts-guava-page .center-bottle img {
     width: 100%;
     height: auto;
     border-radius: 16px;
@@ -854,7 +837,7 @@ class<!DOCTYPE html>
 
 
   /* ===== QUOTE BAND ===== */
-  .quote-band {
+  .shotts-guava-page .quote-band {
     background: linear-gradient(135deg, #C2748A, #D98CA0, #A14D63);
     padding: 70px 24px;
     text-align: center;
@@ -862,7 +845,7 @@ class<!DOCTYPE html>
     overflow: hidden;
   }
 
-  .quote-band::before {
+  .shotts-guava-page .quote-band::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -870,7 +853,7 @@ class<!DOCTYPE html>
     opacity: 0.6;
   }
 
-  .quote-band p {
+  .shotts-guava-page .quote-band p {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
     font-style: italic;
@@ -882,7 +865,7 @@ class<!DOCTYPE html>
     z-index: 5;
     text-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
-  .quote-band span {
+  .shotts-guava-page .quote-band span {
     display: block;
     font-size: 14px;
     font-weight: 700;
@@ -897,13 +880,13 @@ class<!DOCTYPE html>
   }
 
   /* ===== FLAVOURS ===== */
-  .flavours {
+  .shotts-guava-page .flavours {
     background: linear-gradient(180deg, #F2F0E2 0%, #F7F0E6 100%);
     padding: 90px 24px;
     text-align: center;
   }
 
-  .flavours h2 {
+  .shotts-guava-page .flavours h2 {
     font-family: 'Playfair Display', serif;
     font-size: 32px;
     font-weight: 400;
@@ -912,7 +895,7 @@ class<!DOCTYPE html>
     margin-bottom: 10px;
   }
 
-  .flavours-grid {
+  .shotts-guava-page .flavours-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
@@ -920,25 +903,25 @@ class<!DOCTYPE html>
   margin: 0 auto;
 }
 
-.flavour-card {
+.shotts-guava-page .flavour-card {
   text-align: center;
 }
 
 /* Tablet */
 @media (max-width: 768px) {
-  .flavours-grid {
+  .shotts-guava-page .flavours-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-  .flavours-grid {
+  .shotts-guava-page .flavours-grid {
     grid-template-columns: 1fr;
   }
 }
 
-  .flavour-card {
+  .shotts-guava-page .flavour-card {
     background: #F7F0E6;
     border-radius: 24px;
     padding: 35px 28px;
@@ -950,7 +933,7 @@ class<!DOCTYPE html>
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(74,37,48,0.06);
   }
-  .flavour-card::after {
+  .shotts-guava-page .flavour-card::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -959,32 +942,32 @@ class<!DOCTYPE html>
     opacity: 0;
     transition: opacity 0.4s;
   }
-  .flavour-card:hover {
+  .shotts-guava-page .flavour-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(74,37,48,0.1);
     border-color: rgba(217,140,160,0.4);
   }
-  .flavour-card:hover::after { opacity: 1; }
+  .shotts-guava-page .flavour-card:hover::after { opacity: 1; }
 
-  .flavour-card svg {
+  .shotts-guava-page .flavour-card svg {
     margin: 0 auto 14px;
     display: block;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
   }
-  .flavour-card p:first-of-type {
+  .shotts-guava-page .flavour-card p:first-of-type {
     font-weight: 700;
     font-size: 15px;
     color: var(--text-dark);
     margin-bottom: 8px;
   }
-  .flavour-card p:last-of-type {
+  .shotts-guava-page .flavour-card p:last-of-type {
     font-size: 12px;
     color: var(--text-muted);
     font-weight: 500;
   }
 
   /* ===== CTA ===== */
-  .cta {
+  .shotts-guava-page .cta {
     background: linear-gradient(180deg, #F7F0E6 0%, #F0BBC9 25%, #F0BBC9 50%, #F0BBC9 75%, #D98CA0 100%);
     padding: 130px 24px;
     text-align: center;
@@ -992,7 +975,7 @@ class<!DOCTYPE html>
     overflow: hidden;
   }
 
-  .cta-sun {
+  .shotts-guava-page .cta-sun {
     position: absolute;
     bottom: 15%;
     left: 50%;
@@ -1010,7 +993,7 @@ class<!DOCTYPE html>
     50% { opacity: 1; transform: translateX(-50%) scale(1.15); }
   }
 
-  .cta h2 {
+  .shotts-guava-page .cta h2 {
     font-family: 'Playfair Display', serif;
     font-size: 48px;
     font-weight: 400;
@@ -1022,7 +1005,7 @@ class<!DOCTYPE html>
     text-shadow: 0 2px 20px rgba(0,0,0,0.4);
   }
 
-  .cta-sub {
+  .shotts-guava-page .cta-sub {
     font-size: 18px;
     color: #6B3D4A;
     margin-bottom: 50px;
@@ -1031,7 +1014,7 @@ class<!DOCTYPE html>
     z-index: 10;
   }
 
-  .cta-buttons {
+  .shotts-guava-page .cta-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -1040,7 +1023,7 @@ class<!DOCTYPE html>
     z-index: 10;
   }
 
-  .cta-btn-primary {
+  .shotts-guava-page .cta-btn-primary {
     display: inline-block;
     background: linear-gradient(135deg, #C2748A, #D98CA0);
     color: white;
@@ -1056,12 +1039,12 @@ class<!DOCTYPE html>
     transition: all 0.3s;
     box-shadow: 0 10px 30px rgba(161,77,99,0.15);
   }
-  .cta-btn-primary:hover {
+  .shotts-guava-page .cta-btn-primary:hover {
     transform: scale(1.05) translateY(-3px);
     box-shadow: 0 15px 40px rgba(161,77,99,0.25);
   }
 
-  .cta-btn-secondary {
+  .shotts-guava-page .cta-btn-secondary {
     background: transparent;
     border: 2.5px solid #D98CA0;
     color: #D98CA0;
@@ -1073,13 +1056,13 @@ class<!DOCTYPE html>
     cursor: pointer;
     transition: all 0.3s;
   }
-  .cta-btn-secondary:hover {
+  .shotts-guava-page .cta-btn-secondary:hover {
     background: #A14D63;
     color: white;
     transform: translateY(-3px);
   }
 
-  .cta-note {
+  .shotts-guava-page .cta-note {
     font-size: 14px;
     color: var(--text-muted);
     margin-top: 35px;
@@ -1092,261 +1075,219 @@ class<!DOCTYPE html>
     display: inline-block;
   }
 
-  .cta .float-berries {
+  .shotts-guava-page .cta .shotts-guava-page .float-berries {
     position: absolute;
     opacity: 0.25;
     animation: floatBerries 8s ease-in-out infinite;
     filter: drop-shadow(0 4px 8px rgba(217,140,160,0.15));
   }
 
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--text-dark);
-    padding: 45px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #C2748A;
-  }
-  .footer-logo span { color: var(--mango-bright); }
-
-  footer p {
-    font-size: 13px;
-    color: #A67885;
-    font-weight: 500;
-  }
-
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
-    nav { padding: 15px 24px; }
-    .nav-links { display: none; }
-    .hero-title { font-size: 36px; }
-    .hero-bottle { width: 220px; }
-    .product-info-wrap { flex-direction: column; gap: 40px; }
-    .product-bottle-left { flex: 0 0 auto; }
-    .product-bottle-left img { max-width: 300px; }
-    .product-info-text h2 { font-size: 30px; }
-    .vitamin-highlights { grid-template-columns: 1fr; }
-    .character-wrap { flex-direction: column; gap: 40px; }
-    .character-img { flex: 0 0 auto; }
-    .story-section h2 { font-size: 30px; }
-    .orbit-container { width: 320px; height: 320px; }
-    .orbit-item { animation: orbitSpin 20s linear infinite; }
+    .shotts-guava-page .hero-title { font-size: 36px; }
+    .shotts-guava-page .hero-bottle { width: 220px; }
+    .shotts-guava-page .product-info-wrap { flex-direction: column; gap: 40px; }
+    .shotts-guava-page .product-bottle-left { flex: 0 0 auto; }
+    .shotts-guava-page .product-bottle-left img { max-width: 300px; }
+    .shotts-guava-page .product-info-text h2 { font-size: 30px; }
+    .shotts-guava-page .vitamin-highlights { grid-template-columns: 1fr; }
+    .shotts-guava-page .character-wrap { flex-direction: column; gap: 40px; }
+    .shotts-guava-page .character-img { flex: 0 0 auto; }
+    .shotts-guava-page .story-section h2 { font-size: 30px; }
+    .shotts-guava-page .orbit-container { width: 320px; height: 320px; }
+    .shotts-guava-page .orbit-item { animation: orbitSpin 20s linear infinite; }
     @keyframes orbitSpin {
       from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
       to { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
     }
-    .orbit-ring { width: 260px; height: 260px; }
-    .center-bottle { width: 110px; }
-    .cta h2 { font-size: 34px; }
-    footer { flex-direction: column; text-align: center; }
+    .shotts-guava-page .orbit-ring { width: 260px; height: 260px; }
+    .shotts-guava-page .center-bottle { width: 110px; }
+    .shotts-guava-page .cta h2 { font-size: 34px; }
   }
 
-  html { scroll-behavior: smooth; }
-
-  .fade-in {
+  .shotts-guava-page .fade-in {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
   }
-  .fade-in.visible {
+  .shotts-guava-page .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
   }
-</style>
-</head>
-<body>
 
-<nav>
-  <div class="logo">Blew<span>Water</span></div>
-  <ul class="nav-links">
-    <li onclick="document.querySelector('.product-info-section').scrollIntoView()">Product Info</li>
-    <li onclick="document.querySelector('.story-section').scrollIntoView()">Our Story</li>
-    <li onclick="document.querySelector('.ingredients').scrollIntoView()">Ingredients</li>
-    <li onclick="document.querySelector('.benefits').scrollIntoView()">Benefits</li>
-  </ul>
-  <button class="nav-btn" onclick="document.querySelector('.cta').scrollIntoView()">Try Now</button>
-</nav>
+      `}</style>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <svg class="cloud" width="120" height="50" viewBox="0 0 120 50">
+
+{/* ===== HERO ===== */}
+<section className="hero">
+  <svg className="cloud" width="120" height="50" viewBox="0 0 120 50">
     <ellipse cx="60" cy="35" rx="50" ry="15" fill="#F7F0E6" opacity="0.9"/>
     <ellipse cx="40" cy="25" rx="28" ry="18" fill="#F7F0E6" opacity="0.9"/>
     <ellipse cx="80" cy="22" rx="25" ry="16" fill="#F7F0E6" opacity="0.9"/>
   </svg>
-  <svg class="cloud" width="100" height="42" viewBox="0 0 100 42">
+  <svg className="cloud" width="100" height="42" viewBox="0 0 100 42">
     <ellipse cx="50" cy="30" rx="42" ry="12" fill="#F0BBC9" opacity="0.8"/>
     <ellipse cx="34" cy="22" rx="22" ry="15" fill="#F0BBC9" opacity="0.8"/>
     <ellipse cx="65" cy="20" rx="20" ry="14" fill="#F0BBC9" opacity="0.8"/>
   </svg>
-  <svg class="cloud" width="80" height="34" viewBox="0 0 80 34">
+  <svg className="cloud" width="80" height="34" viewBox="0 0 80 34">
     <ellipse cx="40" cy="24" rx="32" ry="10" fill="#F7F0E6" opacity="0.7"/>
     <ellipse cx="26" cy="16" rx="17" ry="11" fill="#F7F0E6" opacity="0.7"/>
     <ellipse cx="52" cy="14" rx="16" ry="11" fill="#F7F0E6" opacity="0.7"/>
   </svg>
-  <svg class="cloud" width="60" height="26" viewBox="0 0 60 26">
+  <svg className="cloud" width="60" height="26" viewBox="0 0 60 26">
     <ellipse cx="30" cy="18" rx="25" ry="8" fill="#F0BBC9" opacity="0.6"/>
     <ellipse cx="21" cy="12" rx="13" ry="9" fill="#F0BBC9" opacity="0.6"/>
     <ellipse cx="43" cy="10" rx="12" ry="8" fill="#F0BBC9" opacity="0.6"/>
   </svg>
-  <svg class="cloud" width="50" height="22" viewBox="0 0 50 22">
+  <svg className="cloud" width="50" height="22" viewBox="0 0 50 22">
     <ellipse cx="25" cy="15" rx="20" ry="7" fill="#F7F0E6" opacity="0.55"/>
     <ellipse cx="16" cy="10" rx="11" ry="8" fill="#F7F0E6" opacity="0.55"/>
     <ellipse cx="34" cy="8" rx="10" ry="7" fill="#F7F0E6" opacity="0.55"/>
   </svg>
 
-  <svg class="birds" width="48" height="20" viewBox="0 0 48 20">
-    <path d="M4 10 Q8 4 12 10" stroke="#8d6e63" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M18 7 Q22 1 26 7" stroke="#8d6e63" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M32 12 Q35 8 38 12" stroke="#8d6e63" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <svg className="birds" width="48" height="20" viewBox="0 0 48 20">
+    <path d="M4 10 Q8 4 12 10" stroke="#8d6e63" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+    <path d="M18 7 Q22 1 26 7" stroke="#8d6e63" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+    <path d="M32 12 Q35 8 38 12" stroke="#8d6e63" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
   </svg>
-  <svg class="birds" width="40" height="18" viewBox="0 0 40 18">
-    <path d="M4 9 Q8 3 12 9" stroke="#8d6e63" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-    <path d="M20 6 Q24 1 28 6" stroke="#8d6e63" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <svg className="birds" width="40" height="18" viewBox="0 0 40 18">
+    <path d="M4 9 Q8 3 12 9" stroke="#8d6e63" strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+    <path d="M20 6 Q24 1 28 6" stroke="#8d6e63" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
   </svg>
-  <svg class="birds" width="30" height="14" viewBox="0 0 30 14">
-    <path d="M2 7 Q6 2 10 7" stroke="#8d6e63" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-    <path d="M16 5 Q19 1 22 5" stroke="#8d6e63" stroke-width="1" fill="none" stroke-linecap="round"/>
-  </svg>
-
-  <span class="orange" style="top:10%;left:4%;font-size:36px;animation-delay:0s;opacity:0.35;">🍈</span>
-  <span class="orange" style="top:65%;left:3%;font-size:30px;animation-delay:-3s;opacity:0.30;">🍈</span>
-  <span class="orange" style="top:12%;right:5%;font-size:32px;animation-delay:-2.5s;opacity:0.35;">🍈</span>
-  <span class="orange" style="top:70%;right:4%;font-size:28px;animation-delay:-1.5s;opacity:0.28;">🍈</span>
-  <span class="orange" style="top:85%;left:48%;font-size:26px;animation-delay:-4s;opacity:0.25;">🍈</span>
+  <svg className="birds" width="30" height="14" viewBox="0 0 30 14">
+    <path d="M2 7 Q6 2 10 7" stroke="#8d6e63" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+    <path d="M16 5 Q19 1 22 5" stroke="#8d6e63" strokeWidth="1" fill="none" strokeLinecap="round"/>
   </svg>
 
-  <svg class="water-splash" width="120" height="100" viewBox="0 0 120 100" style="opacity:0.35;">
-    <path d="M10 90 Q30 50 50 70 Q70 30 90 60 Q110 20 120 40" stroke="#4fc3f7" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <span className="orange" style={{top: '10%', left: '4%', fontSize: '36px', animationDelay: '0s', opacity: '0.35'}}>🍈</span>
+  <span className="orange" style={{top: '65%', left: '3%', fontSize: '30px', animationDelay: '-3s', opacity: '0.30'}}>🍈</span>
+  <span className="orange" style={{top: '12%', right: '5%', fontSize: '32px', animationDelay: '-2.5s', opacity: '0.35'}}>🍈</span>
+  <span className="orange" style={{top: '70%', right: '4%', fontSize: '28px', animationDelay: '-1.5s', opacity: '0.28'}}>🍈</span>
+  <span className="orange" style={{top: '85%', left: '48%', fontSize: '26px', animationDelay: '-4s', opacity: '0.25'}}>🍈</span>
+
+  <svg className="water-splash" width="120" height="100" viewBox="0 0 120 100" style={{opacity: '0.35'}}>
+    <path d="M10 90 Q30 50 50 70 Q70 30 90 60 Q110 20 120 40" stroke="#4fc3f7" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.7"/>
     <circle cx="25" cy="55" r="4" fill="#4fc3f7" opacity="0.5"/>
     <circle cx="45" cy="40" r="3" fill="#4fc3f7" opacity="0.5"/>
     <circle cx="70" cy="35" r="5" fill="#4fc3f7" opacity="0.5"/>
     <circle cx="95" cy="45" r="3" fill="#4fc3f7" opacity="0.5"/>
   </svg>
-  <svg class="water-splash" width="100" height="80" viewBox="0 0 100 80" style="opacity:0.35;">
-    <path d="M5 70 Q25 40 40 55 Q60 25 80 50 Q95 30 100 45" stroke="#4fc3f7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <svg className="water-splash" width="100" height="80" viewBox="0 0 100 80" style={{opacity: '0.35'}}>
+    <path d="M5 70 Q25 40 40 55 Q60 25 80 50 Q95 30 100 45" stroke="#4fc3f7" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.6"/>
     <circle cx="20" cy="45" r="3" fill="#4fc3f7" opacity="0.4"/>
     <circle cx="50" cy="30" r="4" fill="#4fc3f7" opacity="0.4"/>
     <circle cx="85" cy="40" r="3" fill="#4fc3f7" opacity="0.4"/>
   </svg>
-  <svg class="water-splash" width="80" height="70" viewBox="0 0 80 70" style="opacity:0.3;">
-    <path d="M5 60 Q20 35 35 50 Q55 25 70 45 Q78 30 80 40" stroke="#4fc3f7" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <svg className="water-splash" width="80" height="70" viewBox="0 0 80 70" style={{opacity: '0.3'}}>
+    <path d="M5 60 Q20 35 35 50 Q55 25 70 45 Q78 30 80 40" stroke="#4fc3f7" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5"/>
     <circle cx="18" cy="40" r="2.5" fill="#4fc3f7" opacity="0.4"/>
     <circle cx="45" cy="30" r="3" fill="#4fc3f7" opacity="0.4"/>
   </svg>
 
-  <p class="hero-tagline">Guava · Vitamin Water · Pure Goodness</p>
-  <h1 class="hero-title">"No Trek is complete<br>without <em>chatpata guavas.</em>"</h1>
+  <p className="hero-tagline">Guava · Vitamin Water · Pure Goodness</p>
+  <h1 className="hero-title">"No Trek is complete<br />without <em>chatpata guavas.</em>"</h1>
 
-  <div class="hero-bottle">
-    <img src="guava-removebg-preview.png" alt="SHOTT'S Guava Functional Vitamin Water bottle"/>
+  <div className="hero-bottle">
+    <img src={assetPath("/flavours/guava/guava-removebg-preview.png")} alt="SHOTT'S Guava Functional Vitamin Water bottle"/>
   </div>
 
-  <p class="hero-sub">Vitamin C · B6 · Zero Sugar · 100% Natural</p>
-  <p class="hero-scroll" onclick="document.querySelector('.product-info-section').scrollIntoView()"> scroll to explore</p>
+  <p className="hero-sub">Vitamin C · B6 · Zero Sugar · 100% Natural</p>
+  <p className="hero-scroll" onClick={() => scrollToSection('.product-info-section')}> scroll to explore</p>
 </section>
 
-<!-- ===== PRODUCT INFO SECTION - BOTTLE LEFT + INFO RIGHT ===== -->
-<section class="product-info-section">
-  <span class="orange" style="top:10%;right:12%;font-size:52px;opacity:0.25;animation-delay:-1s;">🍈</span>
-  <span class="orange" style="bottom:15%;left:8%;font-size:44px;opacity:0.25;animation-delay:-3s;">🍈</span>
-  <span class="orange" style="top:60%;right:5%;font-size:38px;opacity:0.25;animation-delay:-2s;">🍈</span>
+{/* ===== PRODUCT INFO SECTION - BOTTLE LEFT + INFO RIGHT ===== */}
+<section className="product-info-section">
+  <span className="orange" style={{top: '10%', right: '12%', fontSize: '52px', opacity: '0.25', animationDelay: '-1s'}}>🍈</span>
+  <span className="orange" style={{bottom: '15%', left: '8%', fontSize: '44px', opacity: '0.25', animationDelay: '-3s'}}>🍈</span>
+  <span className="orange" style={{top: '60%', right: '5%', fontSize: '38px', opacity: '0.25', animationDelay: '-2s'}}>🍈</span>
 
-  <div class="product-info-wrap">
-    <div class="product-bottle-left">
-      <img src="guava-removebg-preview.png" alt="SHOTT'S Guava Functional Vitamin Water bottle - Fresh Guava Flavour"/>
+  <div className="product-info-wrap">
+    <div className="product-bottle-left">
+      <img src={assetPath("/flavours/guava/guava-removebg-preview.png")} alt="SHOTT'S Guava Functional Vitamin Water bottle - Fresh Guava Flavour"/>
     </div>
-    <div class="product-info-text">
-      <p class="section-label">Complete Your Daily Nutrition</p>
-      <h2>Your Daily Vitamin Gap,<br><em>Finally Filled.</em></h2>
-      <div class="divider"></div>
+    <div className="product-info-text">
+      <p className="section-label">Complete Your Daily Nutrition</p>
+      <h2>Your Daily Vitamin Gap,<br /><em>Finally Filled.</em></h2>
+      <div className="divider"></div>
 
-      <p class="lead-text">
-        Most of us Indians don't meet our daily vitamin requirements through food alone. 
-        <strong>SHOTT'S</strong> bridges that gap — one refreshing sip at a time.
+      <p className="lead-text">
+        Most of us Indians don't meet our daily vitamin requirements through food alone.  
+        <strong> SHOTT'S</strong> bridges that gap — one refreshing sip at a time.
       </p>
 
-      <p class="info-paragraph">
+      <p className="info-paragraph">
         Packed with essential vitamins your body needs every day, this isn't just a drink — 
         it's your daily nutrition companion. The <strong>fresh guava</strong> flavour 
         brings back childhood monsoons while delivering real health benefits.
       </p>
 
-      <p class="info-paragraph">
-        Whether you are rushing to work, hitting the gym, or just need a midday pick-me-up,  
-        SHOTT'S ensures you don't miss out on the vitamins your diet leaves behind.  
-        <strong> Zero sugar.  100% natural.  Pure goodness.</strong>
+      <p className="info-paragraph">
+        Whether you are rushing to work, hitting the gym, or just need a midday pick-me-up, 
+        SHOTT'S ensures you don't miss out on the vitamins your diet leaves behind. 
+        <strong> Zero sugar. 100% natural. Pure goodness.</strong>
       </p>
 
-      <div class="vitamin-highlights">
-        <div class="vitamin-item">
-          <span class="vit-icon">🍈</span>
-          <p class="vit-name">Vitamin C</p>
-          <p class="vit-desc">Boosts immunity & fights daily fatigue</p>
+      <div className="vitamin-highlights">
+        <div className="vitamin-item">
+          <span className="vit-icon">🍈</span>
+          <p className="vit-name">Vitamin C</p>
+          <p className="vit-desc">Boosts immunity & fights daily fatigue</p>
         </div>
-        <div class="vitamin-item">
-          <span class="vit-icon">⚡</span>
-          <p class="vit-name">Vitamin B6</p>
-          <p class="vit-desc">Supports energy & brain function</p>
+        <div className="vitamin-item">
+          <span className="vit-icon">⚡</span>
+          <p className="vit-name">Vitamin B6</p>
+          <p className="vit-desc">Supports energy & brain function</p>
         </div>
-        <div class="vitamin-item">
-          <span class="vit-icon">🌿</span>
-          <p class="vit-name">Zero Sugar</p>
-          <p class="vit-desc">Natural sweetness, no guilt</p>
+        <div className="vitamin-item">
+          <span className="vit-icon">🌿</span>
+          <p className="vit-name">Zero Sugar</p>
+          <p className="vit-desc">Natural sweetness, no guilt</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- ===== CHARACTER SECTION - CLEAN KID IMAGE ===== -->
-<section class="character-section">
-  <span class="orange" style="top:15%;right:8%;font-size:44px;opacity:0.22;animation-delay:-4s;">🍈</span>
-  <span class="orange" style="bottom:20%;left:5%;font-size:38px;opacity:0.22;animation-delay:-1.5s;">🍈</span>
+{/* ===== CHARACTER SECTION - CLEAN KID IMAGE ===== */}
+<section className="character-section">
+  <span className="orange" style={{top: '15%', right: '8%', fontSize: '44px', opacity: '0.22', animationDelay: '-4s'}}>🍈</span>
+  <span className="orange" style={{bottom: '20%', left: '5%', fontSize: '38px', opacity: '0.22', animationDelay: '-1.5s'}}>🍈</span>
 
-  <div class="character-wrap">
-    <div class="character-img">
-      <!-- CLEAN KID IMAGE WITHOUT BACKGROUND -->
-      <img src="chinuguava.png" alt="Indian school boy with water bottle - childhood monsoon nostalgia"/>
+  <div className="character-wrap">
+    <div className="character-img">
+      {/* CLEAN KID IMAGE WITHOUT BACKGROUND */}
+      <img src={assetPath("/flavours/guava/chinuguava.png")} alt="Indian school boy with water bottle - childhood monsoon nostalgia"/>
     </div>
-    <div class="character-text">
-      <p class="section-label">Meet the Memory</p>
-      <h2>That boy who climbed the neighbour's wall for one raw guava, salt-chilli powder already in his pocket</h2>
-      <div class="divider"></div>
+    <div className="character-text">
+      <p className="section-label">Meet the Memory</p>
+      <h2>That boy who climbed the neighbour's wall for one  guava, salt-chilli powder already in his pocket</h2>
+      <div className="divider"></div>
       <p>
         A stick in one hand, a folded paper of salt and chilli in the other.
 
         Guavas plucked before they were even properly ripe. The tart, grainy crunch of the first bite.
-        Friends racing each other up the same branch, laughing one minute and arguing over who gets the bigger one the next.<br><br>
-        We made <strong>SHOTT'S</strong> for that boy. For the terrace-garden afternoons. For the after-school missions. 
+        Friends racing each other up the same branch, laughing one minute and arguing over who gets the bigger one the next.<br /><br />
+        We made SHOTT'S for that boy. For the terrace-garden afternoons. For the after-school missions. 
         For the guavas no one gave permission for and the memories made on someone else's wall.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ===== STORY SECTION ===== -->
-<section class="story-section">
-  <div class="sunset-glow"></div>
-  <div class="story-inner">
-    <div class="story-photo">
-      <img src="chinutrek.png" alt="Your story photo - replace this with your image"/>
+{/* ===== STORY SECTION ===== */}
+<section className="story-section">
+  <div className="sunset-glow"></div>
+  <div className="story-inner">
+    <div className="story-photo">
+      <img src={assetPath("/flavours/guava/chinutrek.png")} alt="Your story photo - replace this with your image"/>
     </div>
 
-    <p class="section-label" style="text-align:center;">Our Story</p>
-    <h2>Remember when<br> biting into a raw guava wasn't enough—you had to douse it in salt and chilli powder first?</h2>
-    <div class="divider" style="margin:18px auto 24px;"></div>
+    <p className="section-label" style={{textAlign: 'center'}}>Our Story</p>
+    <h2>Remember when<br /> biting into a guava wasn't enough—you had to douse it in salt and chilli powder first?</h2>
+    <div className="divider" style={{margin: '18px auto 24px'}}></div>
     <p>
       Newspaper cones of masala passed around, laughter replacing complaints, and guava slices disappearing faster than anyone could keep count.<strong>A burst of sweet, tangy freshness</strong> — simple, vibrant, and shared with the people who made those moments special.
-<br><br>
+<br /><br />
 
 We built <strong>SHOTT'S</strong> to bring that back.
 Not nostalgia in a bottle, but the real thing — vibrant guava flavour, essential vitamins, minerals, and hydration — nothing you don't need, everything that made those simple moments unforgettable.
@@ -1355,176 +1296,175 @@ Not nostalgia in a bottle, but the real thing — vibrant guava flavour, essenti
   </div>
 </section>
 
-<!-- ===== BENEFITS ===== -->
-<section class="benefits">
-  <p class="section-label">Why SHOTT'S</p>
+{/* ===== BENEFITS ===== */}
+<section className="benefits">
+  <p className="section-label">Why SHOTT'S</p>
   <h2>Good for you. Really.</h2>
-  <div class="divider" style="margin:18px auto 0;"></div>
-  <div class="benefits-grid">
-    <div class="benefit-card">
-      <div class="benefit-icon">☀️</div>
-      <p class="benefit-name">Vitamin Boost</p>
-      <p class="benefit-desc">Vitamin C & B6 for daily immunity & energy</p>
+  <div className="divider" style={{margin: '18px auto 0'}}></div>
+  <div className="benefits-grid">
+    <div className="benefit-card">
+      <div className="benefit-icon">☀️</div>
+      <p className="benefit-name">Vitamin Boost</p>
+      <p className="benefit-desc">Vitamin C & B6 for daily immunity & energy</p>
     </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">💧</div>
-      <p class="benefit-name">Deep Hydration</p>
-      <p class="benefit-desc">Keeps you refreshed through the hottest afternoons</p>
+    <div className="benefit-card">
+      <div className="benefit-icon">💧</div>
+      <p className="benefit-name">Deep Hydration</p>
+      <p className="benefit-desc">Keeps you refreshed through the hottest afternoons</p>
     </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">🌿</div>
-      <p class="benefit-name">Zero Added Sugar</p>
-      <p class="benefit-desc">Natural sweetness only, no guilt attached</p>
+    <div className="benefit-card">
+      <div className="benefit-icon">🌿</div>
+      <p className="benefit-name">Zero Added Sugar</p>
+      <p className="benefit-desc">Natural sweetness only, no guilt attached</p>
     </div>
-
   </div>
 </section>
 
-<!-- ===== INGREDIENTS - WITH REAL BOTTLE IN CENTER ===== -->
-<section class="ingredients">
-  <span class="orange" style="top:6%;left:6%;font-size:60px;opacity:0.18;animation-delay:-0.5s;">🍈</span>
-  <span class="orange" style="bottom:10%;right:6%;font-size:56px;opacity:0.18;animation-delay:-2.5s;">🍈</span>
-  <span class="orange" style="top:45%;left:2%;font-size:50px;opacity:0.18;animation-delay:-3.5s;">🍈</span>
+{/* ===== INGREDIENTS - WITH REAL BOTTLE IN CENTER ===== */}
+<section className="ingredients">
+  <span className="orange" style={{top: '6%', left: '6%', fontSize: '60px', opacity: '0.18', animationDelay: '-0.5s'}}>🍈</span>
+  <span className="orange" style={{bottom: '10%', right: '6%', fontSize: '56px', opacity: '0.18', animationDelay: '-2.5s'}}>🍈</span>
+  <span className="orange" style={{top: '45%', left: '2%', fontSize: '50px', opacity: '0.18', animationDelay: '-3.5s'}}>🍈</span>
 
-  <p class="section-label">What is Inside</p>
+  <p className="section-label">What is Inside</p>
   <h2>Your daily vitamin essentials.</h2>
-  <div class="divider" style="margin:18px auto 0;"></div>
+  <div className="divider" style={{margin: '18px auto 0'}}></div>
 
-  <div class="ingredients-layout">
+  <div className="ingredients-layout">
 
-    <!-- LEFT SIDE: Acids & Sweeteners -->
-    <div class="ingredient-side">
-      <div class="ingredient-card">
-        <span class="ingredient-icon">🍋</span>
-        <div class="ingredient-name">Citric Acid</div>
-        <div class="ingredient-desc">Natural preservative that gives that sharp, tangy kick</div>
+    {/* LEFT SIDE: Acids & Sweeteners */}
+    <div className="ingredient-side">
+      <div className="ingredient-card">
+        <span className="ingredient-icon">🍋</span>
+        <div className="ingredient-name">Citric Acid</div>
+        <div className="ingredient-desc">Natural preservative that gives that sharp, tangy kick</div>
       </div>
-      <div class="ingredient-card">
-        <span class="ingredient-icon">🍏</span>
-        <div class="ingredient-name">Malic Acid</div>
-        <div class="ingredient-desc">Found in berries — adds that authentic sour depth</div>
+      <div className="ingredient-card">
+        <span className="ingredient-icon">🍏</span>
+        <div className="ingredient-name">Malic Acid</div>
+        <div className="ingredient-desc">Found in berries — adds that authentic sour depth</div>
       </div>
-      <div class="ingredient-card">
-        <span class="ingredient-icon">🌿</span>
-        <div class="ingredient-name">Sweetener</div>
-        <div class="ingredient-desc">Clean, zero-calorie sweetness — no sugar, no compromise</div>
+      <div className="ingredient-card">
+        <span className="ingredient-icon">🌿</span>
+        <div className="ingredient-name">Sweetener</div>
+        <div className="ingredient-desc">Clean, zero-calorie sweetness — no sugar, no compromise</div>
       </div>
-      <div class="ingredient-card">
-        <span class="ingredient-icon">🌱</span>
-        <div class="ingredient-name">Stevia (Reb-A 97%)</div>
-        <div class="ingredient-desc">Ultra-pure plant-based sweetener, 97% pure glycoside</div>
+      <div className="ingredient-card">
+        <span className="ingredient-icon">🌱</span>
+        <div className="ingredient-name">Acesulfame Potassium </div>
+        <div className="ingredient-desc">A stable, high-intensity sweetener used to enhance sweetness without added sugar.</div>
       </div>
     </div>
 
-    <!-- CENTER: Orbit animation -->
-    <div class="orbit-container">
-    <div class="orbit-ring"></div>
+    {/* CENTER: Orbit animation */}
+    <div className="orbit-container">
+    <div className="orbit-ring"></div>
 
-    <!-- Vitamin C -->
-    <div class="orbit-item">
-      <div class="orbit-inner">
+    {/* Vitamin C */}
+    <div className="orbit-item">
+      <div className="orbit-inner">
         <svg width="55" height="62" viewBox="0 0 55 62">
           <circle cx="27" cy="31" r="22" fill="#ff9800" opacity="0.95"/>
           <circle cx="27" cy="31" r="16" fill="#ffb74d" opacity="0.7"/>
-          <text x="27" y="36" text-anchor="middle" font-family="Quicksand" font-size="14" font-weight="700" fill="white">C</text>
+          <text x="27" y="36" textAnchor="middle" fontFamily="Quicksand" fontSize="14" fontWeight="700" fill="white">C</text>
         </svg>
-        <span class="orbit-label">Vitamin C</span>
+        <span className="orbit-label">Vitamin C</span>
       </div>
     </div>
 
-    <!-- Vitamin B1 -->
-    <div class="orbit-item">
-      <div class="orbit-inner">
+    {/* Vitamin B1 */}
+    <div className="orbit-item">
+      <div className="orbit-inner">
         <svg width="50" height="50" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="20" fill="#4caf50" opacity="0.9"/>
           <circle cx="25" cy="25" r="14" fill="#81c784" opacity="0.7"/>
-          <text x="25" y="30" text-anchor="middle" font-family="Quicksand" font-size="12" font-weight="700" fill="white">B1</text>
+          <text x="25" y="30" textAnchor="middle" fontFamily="Quicksand" fontSize="12" fontWeight="700" fill="white">B1</text>
         </svg>
-        <span class="orbit-label">Vitamin B1</span>
+        <span className="orbit-label">Vitamin B1</span>
       </div>
     </div>
 
-    <!-- Vitamin B2 -->
-    <div class="orbit-item">
-      <div class="orbit-inner">
+    {/* Vitamin B2 */}
+    <div className="orbit-item">
+      <div className="orbit-inner">
         <svg width="50" height="46" viewBox="0 0 50 46">
           <circle cx="25" cy="23" r="19" fill="#2196f3" opacity="0.9"/>
           <circle cx="25" cy="23" r="13" fill="#64b5f6" opacity="0.7"/>
-          <text x="25" y="28" text-anchor="middle" font-family="Quicksand" font-size="12" font-weight="700" fill="white">B2</text>
+          <text x="25" y="28" textAnchor="middle" fontFamily="Quicksand" fontSize="12" fontWeight="700" fill="white">B2</text>
         </svg>
-        <span class="orbit-label">Vitamin B2</span>
+        <span className="orbit-label">Vitamin B2</span>
       </div>
     </div>
 
-    <!-- Vitamin B3 -->
-    <div class="orbit-item">
-      <div class="orbit-inner">
+    {/* Vitamin B3 */}
+    <div className="orbit-item">
+      <div className="orbit-inner">
         <svg width="50" height="50" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="20" fill="#9c27b0" opacity="0.9"/>
           <circle cx="25" cy="25" r="14" fill="#ce93d8" opacity="0.7"/>
-          <text x="25" y="30" text-anchor="middle" font-family="Quicksand" font-size="12" font-weight="700" fill="white">B3</text>
+          <text x="25" y="30" textAnchor="middle" fontFamily="Quicksand" fontSize="12" fontWeight="700" fill="white">B3</text>
         </svg>
-        <span class="orbit-label">Vitamin B3</span>
+        <span className="orbit-label">Vitamin B3</span>
       </div>
     </div>
 
-    <!-- Vitamin B5 -->
-    <div class="orbit-item">
-      <div class="orbit-inner">
+    {/* Vitamin B5 */}
+    <div className="orbit-item">
+      <div className="orbit-inner">
         <svg width="50" height="50" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="20" fill="#f44336" opacity="0.9"/>
           <circle cx="25" cy="25" r="14" fill="#ef5350" opacity="0.7"/>
-          <text x="25" y="30" text-anchor="middle" font-family="Quicksand" font-size="12" font-weight="700" fill="white">B5</text>
+          <text x="25" y="30" textAnchor="middle" fontFamily="Quicksand" fontSize="12" fontWeight="700" fill="white">B5</text>
         </svg>
-        <span class="orbit-label">Vitamin B5</span>
+        <span className="orbit-label">Vitamin B5</span>
       </div>
     </div>
 
-    <div class="center-bottle">
-      <img src="guava-removebg-preview.png" alt="SHOTT'S Guava Flavoured Vitamin Water"/>
+    <div className="center-bottle">
+      <img src="/flavours/guava/guava-removebg-preview.png" alt="SHOTT'S Guava Flavoured Vitamin Water"/>
     </div>
     </div>
 
-    <!-- RIGHT SIDE: B Vitamins + Minerals -->
-    <div class="ingredient-side">
-      <div class="ingredient-card right">
-        <span class="ingredient-icon">⚡</span>
-        <div class="ingredient-name">Vitamin B3</div>
-        <div class="ingredient-desc">Boosts energy metabolism and supports healthy skin</div>
+    {/* RIGHT SIDE: B Vitamins + Minerals */}
+    <div className="ingredient-side">
+      <div className="ingredient-card right">
+        <span className="ingredient-icon">⚡</span>
+        <div className="ingredient-name">Vitamin B3</div>
+        <div className="ingredient-desc">Boosts energy metabolism and supports healthy skin</div>
       </div>
-      <div class="ingredient-card right">
-        <span class="ingredient-icon">🧠</span>
-        <div class="ingredient-name">Vitamin B6</div>
-        <div class="ingredient-desc">Essential for brain function and immune system support</div>
+      <div className="ingredient-card right">
+        <span className="ingredient-icon">🧠</span>
+        <div className="ingredient-name">Vitamin B6</div>
+        <div className="ingredient-desc">Essential for brain function and immune system support</div>
       </div>
-      <div class="ingredient-card right">
-        <span class="ingredient-icon">🛡️</span>
-        <div class="ingredient-name">Zinc</div>
-        <div class="ingredient-desc">Strengthens immunity and supports cell repair & growth</div>
+      <div className="ingredient-card right">
+        <span className="ingredient-icon">🛡️</span>
+        <div className="ingredient-name">Zinc</div>
+        <div className="ingredient-desc">Strengthens immunity and supports cell repair & growth</div>
       </div>
-      <div class="ingredient-card right">
-        <span class="ingredient-icon">💪</span>
-        <div class="ingredient-name">Iron</div>
-        <div class="ingredient-desc">Carries oxygen through the blood, fights fatigue naturally</div>
+      <div className="ingredient-card right">
+        <span className="ingredient-icon">💪</span>
+        <div className="ingredient-name">Iron</div>
+        <div className="ingredient-desc">Carries oxygen through the blood, fights fatigue naturally</div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ===== QUOTE BAND ===== -->
-<div class="quote-band">
-  <p>"A guava plucked warm off the branch, a pinch of salt-chilli in your palm, and an afternoon worth remembering.<br>Some memories taste sweeter than others."</p>
+{/* ===== QUOTE BAND ===== */}
+<div className="quote-band">
+  <p>"A guava plucked warm off the branch, a pinch of salt-chilli in your palm, and an afternoon worth remembering.<br />Some memories taste sweeter than others."</p>
   <span>— The SHOTT'S Story</span>
 </div>
 
-<!-- ===== FLAVOURS ===== -->
-<div class="flavours">
-  <p class="section-label">Made with love</p>
+{/* ===== FLAVOURS ===== */}
+<div className="flavours">
+  <p className="section-label">Made with love</p>
   <h2>Five flavours. One feeling.</h2>
-  <div class="flavours-grid">
-   <div class="flavour-card">
-    <svg width="52" height="60" viewBox="0 0 52 60" style="margin:0 auto 14px;display:block;">
+  <div className="flavours-grid">
+   <div className="flavour-card">
+    <svg width="52" height="60" viewBox="0 0 52 60" style={{margin: '0 auto 14px', display: 'block'}}>
      <circle cx="26" cy="34" r="16" fill="#3949ab"/>
      <circle cx="21" cy="29" r="5" fill="#7986cb" opacity="0.5"/>
      <path d="M26 16
@@ -1542,32 +1482,32 @@ Not nostalgia in a bottle, but the real thing — vibrant guava flavour, essenti
      <p>Berries</p>
      <p>Sweet · Juicy · Fresh</p>
   </div>
-  <div class="flavour-card">
-    <svg width="52" height="60" viewBox="0 0 52 60" style="margin:0 auto 14px;display:block;">
+  <div className="flavour-card">
+    <svg width="52" height="60" viewBox="0 0 52 60" style={{margin: '0 auto 14px', display: 'block'}}>
      <ellipse cx="26" cy="32" rx="15" ry="20" fill="#FFD54F"/>
      <ellipse cx="22" cy="27" rx="5" ry="8" fill="#FFF59D" opacity="0.6"/>
      <ellipse cx="34" cy="15" rx="5" ry="3" fill="#4CAF50" transform="rotate(-25 34 15)"/>
-     <path d="M26 16 Q28 12 26 8" stroke="#795548" stroke-width="2" fill="none"/>
+     <path d="M26 16 Q28 12 26 8" stroke="#795548" strokeWidth="2" fill="none"/>
      <path d="M26 12 L24 15 L28 15 Z" fill="#FBC02D"/>
      <path d="M26 52 L24 49 L28 49 Z" fill="#FBC02D"/>
     </svg>
     <p>Lemon</p>
     <p>Zesty · Minty · Refreshing</p>
   </div>
-  <div class="flavour-card">
-    <svg width="52" height="60" viewBox="0 0 52 60" style="margin:0 auto 14px;display:block;">
+  <div className="flavour-card">
+    <svg width="52" height="60" viewBox="0 0 52 60" style={{margin: '0 auto 14px', display: 'block'}}>
      <circle cx="26" cy="32" r="16" fill="#D98CA0"/>
      <circle cx="26" cy="32" r="10" fill="#F0BBC9"/>
      <circle cx="26" cy="32" r="4" fill="#A14D63" opacity="0.7"/>
      <ellipse cx="21" cy="26" rx="4" ry="6" fill="#F0BBC9" opacity="0.5"/>
      <ellipse cx="31" cy="14" rx="5" ry="3" fill="#A14D63" transform="rotate(-25 31 14)"/>
-     <path d="M26 18 Q27 13 26 10" stroke="#795548" stroke-width="2" fill="none"/>
+     <path d="M26 18 Q27 13 26 10" stroke="#795548" strokeWidth="2" fill="none"/>
    </svg>
    <p>Guava</p>
    <p>Sweet · Tangy · Nostalgic</p>
  </div>
- <div class="flavour-card">
-   <svg width="52" height="60" viewBox="0 0 52 60" style="margin:0 auto 14px;display:block;">
+ <div className="flavour-card">
+   <svg width="52" height="60" viewBox="0 0 52 60" style={{margin: '0 auto 14px', display: 'block'}}>
      <ellipse cx="26" cy="36" rx="17" ry="21" fill="#7cb342" opacity="0.95" transform="rotate(-12 26 36)"/>
      <ellipse cx="26" cy="32" rx="13" ry="17" fill="#aed581" opacity="0.7" transform="rotate(-12 26 32)"/>
      <path d="M26 15 Q29 8 26 4 Q23 8 26 15" fill="#33691e"/>
@@ -1575,45 +1515,36 @@ Not nostalgia in a bottle, but the real thing — vibrant guava flavour, essenti
     <p> Mango</p>
     <p>Sweet · Nostalgic · Refreshing</p>
   </div>
-  <div class="flavour-card">
-   <svg width="52" height="60" viewBox="0 0 52 60" style="margin:0 auto 14px;display:block;">
+  <div className="flavour-card">
+   <svg width="52" height="60" viewBox="0 0 52 60" style={{margin: '0 auto 14px', display: 'block'}}>
     <circle cx="26" cy="32" r="16" fill="#ff9800"/>
     <circle cx="22" cy="28" r="5" fill="#ffb74d" opacity="0.6"/>
     <ellipse cx="31" cy="14" rx="5" ry="3" fill="#4caf50" transform="rotate(-25 31 14)"/>
-    <path d="M26 18 Q27 13 26 10" stroke="#795548" stroke-width="2" fill="none"/>
+    <path d="M26 18 Q27 13 26 10" stroke="#795548" strokeWidth="2" fill="none"/>
    </svg>
    <p>Orange</p>
    <p>Citrusy · Juicy · Classic</p>
   </div>
   </div>
-  </div>
 </div>
 
-<!-- ===== CTA ===== -->
-<section class="cta">
-  <div class="cta-sun"></div>
-  <span class="orange" style="top:15%;left:8%;font-size:38px;opacity:0.45;animation-delay:-1s;">🍈</span>
-  <span class="orange" style="bottom:20%;right:10%;font-size:34px;opacity:0.45;animation-delay:-3s;">🍈</span>
-  <span class="orange" style="top:30%;right:6%;font-size:30px;opacity:0.40;animation-delay:-2s;">🍈</span>
-  <p class="section-label">One Last Sip</p>
+{/* ===== CTA ===== */}
+<section className="cta">
+  <div className="cta-sun"></div>
+  <span className="orange" style={{top: '15%', left: '8%', fontSize: '38px', opacity: '0.45', animationDelay: '-1s'}}>🍈</span>
+  <span className="orange" style={{bottom: '20%', right: '10%', fontSize: '34px', opacity: '0.45', animationDelay: '-3s'}}>🍈</span>
+  <span className="orange" style={{top: '30%', right: '6%', fontSize: '30px', opacity: '0.40', animationDelay: '-2s'}}>🍈</span>
+  <p className="section-label">One Last Sip</p>
   <h2>"Some monsoons stay forever."</h2>
-  <p class="cta-sub">Carry yours in every bottle of SHOTT'S.</p>
-  <div class="cta-buttons">
-    <button class="cta-btn-primary">Try SHOTT'S →</button>
-    <button class="cta-btn-secondary">Our Story</button>
+  <p className="cta-sub">Carry yours in every bottle of SHOTT'S.</p>
+  <div className="cta-buttons">
+<a href="/products" className="cta-btn-secondary">Explore All Flavours</a>
   </div>
-  <p class="cta-note">Available in Berries · Lemon · Guava · Mango · Orange </p>
+  <p className="cta-note">Available in Berries · Lemon · Guava · Mango · Orange </p>
 </section>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div>
-    <div class="footer-logo">SHOTT'S</div>
-    <p style="font-size:12px;color:#A67885;margin-top:6px;font-style:italic;">Guava Flavoured Functional Vitamin Water</p>
-  </div>
-  <p style="font-size:13px;color:#C79AAA;font-style:italic;">"Monsoon in every sip."</p>
-  <p style="font-size:12px;color:#A67885;">© 2025 Blew </p>
-</footer>
+    </div>
+  );
+};
 
-</body>
-</html>
+export default ShottsGuava;
